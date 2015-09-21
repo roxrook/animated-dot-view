@@ -1,8 +1,8 @@
 # AnimatedDotsView
 Simple dot animation to show progress
 
-# Screenshots
-![Main screen](/screenshots/sc.png)
+# Demo
+![Main screen](/screenshots/sc.gif)
 
 # Usage
 Add a dependency to your `build.gradle`:
