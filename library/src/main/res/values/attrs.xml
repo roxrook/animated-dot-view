@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="CircleView">
+    <attr name="cv___radius" format="dimension"/>
+    <attr name="cv___color" format="color"/>
+    <attr name="cv___filled" format="boolean"/>
+  </declare-styleable>
+
+  <declare-styleable name="AnimatedDotsView">
+    <attr name="adv___dotRadius" format="dimension"/>
+    <attr name="adv___dotBlinkingColor" format="color"/>
+    <attr name="adv___dotNeutralColor" format="color"/>
+    <attr name="adv___dotCount" format="integer"/>
+  </declare-styleable>
+</resources>
