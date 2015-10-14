@@ -8,7 +8,7 @@ Simple dot animation to show progress
 Add a dependency to your `build.gradle`:
 ```
 dependencies {
-    compile 'com.github.channguyen.adv:adv:1.0.0-SNAPSHOT'
+    compile 'com.github.channguyen.adv:1.0.0'
 }
 ```
 Add the `com.github.channguyen.adv.AnimatedDotsView` to your layout XML file.
