@@ -1,9 +1,8 @@
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:custom="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
   >
 
   <com.github.channguyen.adv.AnimatedDotsView
@@ -13,16 +12,20 @@
     custom:adv___dotCount="3"
     custom:adv___dotBlinkingColor="#FF0000"
     android:layout_marginTop="40dp"
-    android:layout_gravity="center_horizontal"
+    android:layout_centerHorizontal="true"
+    custom:adv___dotRadius="10dp"
     />
 
   <com.github.channguyen.adv.AnimatedDotsView
-    android:id="@+id/adv_2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    custom:adv___dotCount="5"
-    custom:adv___dotBlinkingColor="#FFFF00"
-    android:layout_marginTop="40dp"
-    android:layout_gravity="center_horizontal"
-    />
-</LinearLayout>
+      android:id="@+id/adv_2"
+      android:layout_below="@id/adv_1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      custom:adv___dotCount="3"
+      custom:adv___dotBlinkingColor="#FF0000"
+      android:layout_marginTop="40dp"
+      custom:adv___dotRadius="10dp"
+      />
+
+</RelativeLayout>

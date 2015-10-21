@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
@@ -32,7 +32,7 @@ public class AnimatedDotsView extends LinearLayout {
 
   protected CircleView[] dotViews;
 
-  protected AnimatorSet animatorSet = new AnimatorSet();
+  protected AnimatorSet animatorSet;
 
   protected boolean stop = false;
 
@@ -54,9 +54,7 @@ public class AnimatedDotsView extends LinearLayout {
 
   public AnimatedDotsView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
-    final LayoutInflater inflater = LayoutInflater.from(context);
-    final LinearLayout ll = (LinearLayout) inflater.inflate(
-      R.layout.v_animated_dots, this);
+    inflate(context, R.layout.v_animated_dots, this);
     if (attrs != null) {
       TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnimatedDotsView);
       try {
@@ -73,27 +71,14 @@ public class AnimatedDotsView extends LinearLayout {
       }
     }
 
+    setOrientation(HORIZONTAL);
     if (dotCount < 1 || dotCount > 10) {
       throw new IllegalArgumentException("The number of dot should be between [1, 10]");
     }
-
-    dotViews = new CircleView[dotCount];
-    for (int i = 0; i < dotCount; ++i) {
-      dotViews[i] = new CircleView(context);
-      dotViews[i].setRadius(dotRadius);
-      dotViews[i].setColor(neutralColor);
-      ll.addView(
-        dotViews[i],
-        new LinearLayout.LayoutParams(
-          ViewGroup.LayoutParams.WRAP_CONTENT,
-          ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-      );
-    }
-    prepareAnimators();
+    addCircleViews();
   }
 
-  private void prepareAnimators() {
+  private AnimatorSet prepareAnimators() {
     ObjectAnimator[] animators = new ObjectAnimator[dotCount];
     int half = dotCount >> 1;
     long d = DURATION_DIFF;
@@ -126,6 +111,7 @@ public class AnimatedDotsView extends LinearLayout {
       animators[i] = createAnimator(dotViews[i], d);
     }
 
+    final AnimatorSet animatorSet = new AnimatorSet();
     animatorSet.playSequentially(animators);
     animatorSet.setInterpolator(new AccelerateInterpolator(2.0f));
     animatorSet.addListener(new Animator.AnimatorListener() {
@@ -151,6 +137,27 @@ public class AnimatedDotsView extends LinearLayout {
 
       }
     });
+    return animatorSet;
+  }
+
+  private void addCircleViews() {
+    dotViews = new CircleView[dotCount];
+    final Context context = getContext();
+    for (int i = 0; i < dotCount; ++i) {
+      Log.e(TAG, "add view: " + i);
+      dotViews[i] = new CircleView(context);
+      dotViews[i].setRadius(dotRadius);
+      dotViews[i].setColor(neutralColor);
+      addView(
+          dotViews[i],
+          0,
+          new LinearLayout.LayoutParams(
+              ViewGroup.LayoutParams.WRAP_CONTENT,
+              ViewGroup.LayoutParams.WRAP_CONTENT
+          )
+      );
+    }
+    animatorSet = prepareAnimators();
   }
 
   public void startAnimation() {
